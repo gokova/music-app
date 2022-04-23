@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -35,14 +37,19 @@ android {
 }
 
 dependencies {
+    implementation "androidx.core:core-ktx:${core_ktx}"
+    implementation "androidx.appcompat:appcompat:${appcompat}"
+    implementation "com.google.android.material:material:${material}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraintlayout}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${navigation}"
+    implementation "com.google.dagger:hilt-android:${google_hilt}"
+    implementation "androidx.hilt:hilt-navigation-fragment:${androidx_hilt}"
+    kapt "com.google.dagger:hilt-compiler:${google_hilt}"
+    kapt "androidx.hilt:hilt-compiler:${androidx_hilt}"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation "junit:junit:${junit}"
+
+    androidTestImplementation "androidx.test.ext:junit:${junit_ext}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${espresso_core}"
 }
