@@ -2,12 +2,16 @@ package com.gokmen.musicapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gokmen.musicapp.databinding.FragmentFirstBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -20,6 +24,11 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +44,31 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            Timber.d("Button is clicked")
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_search -> {
+                findNavController().navigate(R.id.action_FirstFragment_to_SearchFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">Music App</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="action_search">Search</string>
     <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+
+    <string name="search_fragment_label">Search Artist</string>
+    <string name="search_hint_text">Type a name to search</string>
+    <string name="short_text_error_message">Text is too short to search for an artist. Please enter at least 3 letters</string>
+    <string name="artist_not_found_error_message">Could not find any artist with given name</string>
+    <string name="right_arrow">Right arrow</string>
+
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

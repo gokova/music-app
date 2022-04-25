@@ -45,6 +45,11 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:${navigation}"
     implementation "com.google.dagger:hilt-android:${google_hilt}"
     implementation "androidx.hilt:hilt-navigation-fragment:${androidx_hilt}"
+    implementation "androidx.startup:startup-runtime:${androidx_startup}"
+    implementation "com.jakewharton.timber:timber:${timber}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${logging_interceptor}"
     kapt "com.google.dagger:hilt-compiler:${google_hilt}"
     kapt "androidx.hilt:hilt-compiler:${androidx_hilt}"
 
