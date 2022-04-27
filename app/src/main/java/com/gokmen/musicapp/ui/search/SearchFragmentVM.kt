@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gokmen.musicapp.api.MusicApi
 import com.gokmen.musicapp.models.Artist
+import com.gokmen.musicapp.utils.toArtist
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,9 +37,9 @@ class SearchFragmentVM @Inject constructor(
         }
 
         CoroutineScope(Dispatchers.Default).launch {
-            val foundArtists = musicApi.searchArtist(artistName)
-                ?.map { Artist(it) }
+            val foundArtists = musicApi.searchArtist(artistName)?.map { it.toArtist() }
             _artists.postValue(foundArtists ?: listOf())
+
             if (foundArtists.isNullOrEmpty()) {
                 _showListEmptyWarning.postValue(true)
             }

@@ -8,5 +8,5 @@ interface MusicApi {
     suspend fun searchArtist(artistName: String): List<SearchArtist>?
 
     @WorkerThread
-    suspend fun getTopTracks(artistName: String)
+    suspend fun findTopAlbums(artistName: String): List<TopAlbum>?
 }

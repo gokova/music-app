@@ -49,7 +49,33 @@ internal class MusicApiImpl @Inject constructor(
     }
 
     @WorkerThread
-    override suspend fun getTopTracks(artistName: String) {
-        // TODO("Not yet implemented")
+    override suspend fun findTopAlbums(artistName: String): List<TopAlbum>? {
+        val countDownLatch = CountDownLatch(1)
+        var result: List<TopAlbum>? = null
+
+        Timber.d("Calling service to find top albums")
+        lastFmService.getTopAlbums(artistName)
+            .enqueue(object : Callback<AlbumResponse> {
+                override fun onResponse(
+                    call: Call<AlbumResponse>,
+                    response: Response<AlbumResponse>
+                ) {
+                    Timber.d("Top album call returned response")
+                    if (response.isSuccessful) {
+                        result = response.body()?.topAlbums?.albums
+                    }
+                    countDownLatch.countDown()
+                }
+
+                override fun onFailure(call: Call<AlbumResponse>, t: Throwable) {
+                    Timber.e(t, "Top album call failed")
+                    countDownLatch.countDown()
+                }
+            })
+
+        countDownLatch.await(TIMEOUT_MILLISECONDS, TimeUnit.MILLISECONDS)
+        Timber.d("Returning found albums")
+
+        return result
     }
 }

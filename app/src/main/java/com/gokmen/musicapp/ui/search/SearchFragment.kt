@@ -4,22 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.gokmen.musicapp.R
 import com.gokmen.musicapp.databinding.FragmentSearchBinding
 import com.gokmen.musicapp.models.Artist
+import com.gokmen.musicapp.utils.getDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
@@ -69,16 +65,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun getDecoration(): RecyclerView.ItemDecoration {
-        val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        context?.let { context ->
-            ContextCompat.getDrawable(context, R.drawable.horizontal_divider)?.let { drawable ->
-                divider.setDrawable(drawable)
-            }
-        }
-        return divider
-    }
-
     private fun initSearchButton() {
         binding.btnSearch.setOnClickListener {
             searchFragmentVM.searchArtist(binding.etSearchText.text?.toString())
@@ -125,5 +111,7 @@ class SearchFragment : Fragment() {
 
     private fun onArtistSelected(selectedArtist: Artist) {
         Timber.d("Selected artist is : ${selectedArtist.name}")
+        val action = SearchFragmentDirections.openArtistFragment(selectedArtist)
+        findNavController().navigate(action)
     }
 }

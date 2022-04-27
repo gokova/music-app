@@ -4,22 +4,22 @@ import com.google.gson.annotations.SerializedName
 
 data class SearchResponse(
     @SerializedName("results")
-    val results: SearchResults
+    val results: SearchResults?
 )
 
 data class SearchResults(
     @SerializedName("artistmatches")
-    val matches: SearchMatches
+    val matches: SearchMatches?
 )
 
 data class SearchMatches(
     @SerializedName("artist")
-    val artists: List<SearchArtist>
+    val artists: List<SearchArtist>?
 )
 
 data class SearchArtist(
     @SerializedName("mbid")
-    val id: String,
+    val id: String?,
     @SerializedName("name")
-    val name: String
+    val name: String?
 )

@@ -65,7 +65,8 @@ class FirstFragment : Fragment() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_search -> {
-                findNavController().navigate(R.id.action_FirstFragment_to_SearchFragment)
+                val action = FirstFragmentDirections.openSearchFragment()
+                findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,15 +1,23 @@
 <resources>
+    <!-- General strings -->
     <string name="app_name">Music App</string>
     <string name="action_search">Search</string>
-    <string name="first_fragment_label">First Fragment</string>
+    <string name="right_arrow">Right arrow</string>
+    <string name="album_cover">Album cover</string>
 
+    <!-- Main fragment strings -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="next">Next</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+
+    <!-- Search fragment strings -->
     <string name="search_fragment_label">Search Artist</string>
     <string name="search_hint_text">Type a name to search</string>
     <string name="short_text_error_message">Text is too short to search for an artist. Please enter at least 3 letters</string>
     <string name="artist_not_found_error_message">Could not find any artist with given name</string>
-    <string name="right_arrow">Right arrow</string>
 
-    <string name="next">Next</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
+    <!-- Artist fragment strings -->
+    <string name="artist_fragment_label">Top Albums</string>
+    <string name="top_albums">Albums</string>
+    <string name="albums_not_found">Albums not found</string>
 </resources>
