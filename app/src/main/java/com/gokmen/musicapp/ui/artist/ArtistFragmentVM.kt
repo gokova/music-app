@@ -26,9 +26,15 @@ class ArtistFragmentVM @Inject constructor(
     private val _albums = MutableLiveData<List<Album>>()
     val albums: LiveData<List<Album>> = _albums
 
+    private var fetchState: FetchState = FetchState.IDLE
+
     fun findTopAlbums(artist: Artist) {
+        if (fetchState != FetchState.IDLE) return
+
         CoroutineScope(Dispatchers.Default).launch {
+            fetchState = FetchState.FETCHING
             val foundAlbums = musicApi.findTopAlbums(artist.name)?.map { it.toAlbum() }
+            fetchState = FetchState.FETCHED
             _albums.postValue(foundAlbums ?: listOf())
 
             if (foundAlbums.isNullOrEmpty()) {
@@ -39,5 +45,11 @@ class ArtistFragmentVM @Inject constructor(
 
     fun listEmptyWarningIsShown() {
         _showListEmptyWarning.postValue(false)
+    }
+
+    private enum class FetchState {
+        IDLE,
+        FETCHING,
+        FETCHED
     }
 }
