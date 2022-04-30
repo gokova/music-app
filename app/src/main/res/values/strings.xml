@@ -6,9 +6,9 @@
     <string name="album_cover">Album cover</string>
 
     <!-- Main fragment strings -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="next">Next</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="main_fragment_label">Music App</string>
+    <string name="saved_albums">Saved Albums</string>
+    <string name="no_saved_album">You don\'t have saved album</string>
 
     <!-- Search fragment strings -->
     <string name="search_fragment_label">Search Artist</string>

@@ -4,32 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.artist.ArtistFragment">
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_artist_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Artist Name" />
+    tools:context=".ui.main.MainFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_albums_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/top_albums"
+        android:text="@string/saved_albums"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_artist_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_album_list"
@@ -47,7 +34,7 @@
         android:id="@+id/tv_empty_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/albums_not_found"
+        android:text="@string/no_saved_album"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
