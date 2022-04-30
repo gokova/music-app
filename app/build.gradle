@@ -53,9 +53,12 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${retrofit}"
     implementation "com.squareup.okhttp3:logging-interceptor:${logging_interceptor}"
     implementation "com.github.bumptech.glide:glide:${glide}"
+    implementation "androidx.room:room-runtime:${androidx_room}"
+    implementation "androidx.room:room-ktx:${androidx_room}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glide}"
     kapt "com.google.dagger:hilt-compiler:${google_hilt}"
     kapt "androidx.hilt:hilt-compiler:${androidx_hilt}"
+    kapt "androidx.room:room-compiler:${androidx_room}"
 
     testImplementation "junit:junit:${junit}"
 
