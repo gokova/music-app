@@ -1,6 +1,15 @@
 package com.gokmen.musicapp.api
 
 import androidx.annotation.WorkerThread
+import com.gokmen.musicapp.api.models.AlbumInfoResponse
+import com.gokmen.musicapp.api.models.AlbumResponse
+import com.gokmen.musicapp.api.models.AlbumTrack
+import com.gokmen.musicapp.api.models.Result
+import com.gokmen.musicapp.api.models.SearchArtist
+import com.gokmen.musicapp.api.models.SearchResponse
+import com.gokmen.musicapp.api.models.Status
+import com.gokmen.musicapp.api.models.TopAlbum
+import com.gokmen.musicapp.api.services.LastFmService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,9 +27,9 @@ internal class MusicApiImpl @Inject constructor(
     }
 
     @WorkerThread
-    override suspend fun searchArtist(artistName: String): List<SearchArtist>? {
+    override suspend fun searchArtist(artistName: String): Result<List<SearchArtist>> {
         val countDownLatch = CountDownLatch(1)
-        var result: List<SearchArtist>? = null
+        lateinit var result: Result<List<SearchArtist>>
 
         Timber.d("Calling service to search artist")
         lastFmService.searchArtist(artistName)
@@ -29,18 +38,20 @@ internal class MusicApiImpl @Inject constructor(
                     call: Call<SearchResponse>,
                     response: Response<SearchResponse>
                 ) {
-                    if (response.isSuccessful) {
+                    result = if (response.isSuccessful) {
                         Timber.d("Search artist call returned response")
-                        result = response.body()?.results?.matches?.artists
+                        Result(Status.Success, response.body()?.results?.matches?.artists)
                     } else {
                         val errorMessage = response.errorBody()?.string()
                         Timber.e("Search artist call is not successful : $errorMessage")
+                        Result(Status.ServerError)
                     }
                     countDownLatch.countDown()
                 }
 
                 override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                     Timber.e(t, "Search artist call failed")
+                    result = Result(Status.NetworkError)
                     countDownLatch.countDown()
                 }
             })
@@ -52,9 +63,9 @@ internal class MusicApiImpl @Inject constructor(
     }
 
     @WorkerThread
-    override suspend fun findTopAlbums(artistName: String): List<TopAlbum>? {
+    override suspend fun findTopAlbums(artistName: String): Result<List<TopAlbum>> {
         val countDownLatch = CountDownLatch(1)
-        var result: List<TopAlbum>? = null
+        lateinit var result: Result<List<TopAlbum>>
 
         Timber.d("Calling service to find top albums")
         lastFmService.getTopAlbums(artistName)
@@ -63,18 +74,20 @@ internal class MusicApiImpl @Inject constructor(
                     call: Call<AlbumResponse>,
                     response: Response<AlbumResponse>
                 ) {
-                    if (response.isSuccessful) {
+                    result = if (response.isSuccessful) {
                         Timber.d("Top album call returned response")
-                        result = response.body()?.topAlbums?.albums
+                        Result(Status.Success, response.body()?.topAlbums?.albums)
                     } else {
                         val errorMessage = response.errorBody()?.string()
                         Timber.e("Top album call is not successful : $errorMessage")
+                        Result(Status.ServerError)
                     }
                     countDownLatch.countDown()
                 }
 
                 override fun onFailure(call: Call<AlbumResponse>, t: Throwable) {
                     Timber.e(t, "Top album call failed")
+                    result = Result(Status.NetworkError)
                     countDownLatch.countDown()
                 }
             })

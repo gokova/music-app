@@ -1,5 +1,9 @@
-package com.gokmen.musicapp.api
+package com.gokmen.musicapp.api.services
 
+import com.gokmen.musicapp.api.ApiConstants
+import com.gokmen.musicapp.api.models.AlbumInfoResponse
+import com.gokmen.musicapp.api.models.AlbumResponse
+import com.gokmen.musicapp.api.models.SearchResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

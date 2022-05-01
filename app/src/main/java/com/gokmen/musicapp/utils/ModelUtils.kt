@@ -1,8 +1,8 @@
 package com.gokmen.musicapp.utils
 
-import com.gokmen.musicapp.api.AlbumTrack
-import com.gokmen.musicapp.api.SearchArtist
-import com.gokmen.musicapp.api.TopAlbum
+import com.gokmen.musicapp.api.models.AlbumTrack
+import com.gokmen.musicapp.api.models.SearchArtist
+import com.gokmen.musicapp.api.models.TopAlbum
 import com.gokmen.musicapp.db.entity.AlbumEntity
 import com.gokmen.musicapp.db.entity.AlbumWithTracks
 import com.gokmen.musicapp.db.entity.TrackEntity

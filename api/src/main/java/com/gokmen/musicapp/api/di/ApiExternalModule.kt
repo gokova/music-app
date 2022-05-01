@@ -1,5 +1,7 @@
-package com.gokmen.musicapp.api
+package com.gokmen.musicapp.api.di
 
+import com.gokmen.musicapp.api.MusicApi
+import com.gokmen.musicapp.api.MusicApiImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

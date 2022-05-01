@@ -30,7 +30,7 @@ class ArtistFragmentVM @Inject constructor(
 
         CoroutineScope(Dispatchers.Default).launch {
             fetchState = FetchState.FETCHING
-            val foundAlbums = musicApi.findTopAlbums(artist.name)?.map { it.toAlbum() }
+            val foundAlbums = musicApi.findTopAlbums(artist.name).data?.map { it.toAlbum() }
             fetchState = FetchState.FETCHED
             _albums.postValue(foundAlbums ?: listOf())
         }

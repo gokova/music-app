@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gokmen.musicapp.api.MusicApi
-import com.gokmen.musicapp.api.Status
+import com.gokmen.musicapp.api.models.Status
 import com.gokmen.musicapp.db.LocalStorage
 import com.gokmen.musicapp.models.Album
 import com.gokmen.musicapp.utils.toAlbum

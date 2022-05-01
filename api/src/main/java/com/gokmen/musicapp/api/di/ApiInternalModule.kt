@@ -1,6 +1,8 @@
-package com.gokmen.musicapp.api
+package com.gokmen.musicapp.api.di
 
-import com.gokmen.musicapp.BuildConfig
+import com.gokmen.musicapp.api.ApiConstants
+import com.gokmen.musicapp.api.BuildConfig
+import com.gokmen.musicapp.api.services.LastFmService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

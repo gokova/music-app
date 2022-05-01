@@ -37,7 +37,7 @@ class SearchFragmentVM @Inject constructor(
         }
 
         CoroutineScope(Dispatchers.Default).launch {
-            val foundArtists = musicApi.searchArtist(artistName)?.map { it.toArtist() }
+            val foundArtists = musicApi.searchArtist(artistName).data?.map { it.toArtist() }
             _artists.postValue(foundArtists ?: listOf())
 
             if (foundArtists.isNullOrEmpty()) {

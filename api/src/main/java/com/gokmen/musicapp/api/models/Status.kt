@@ -1,4 +1,4 @@
-package com.gokmen.musicapp.api
+package com.gokmen.musicapp.api.models
 
 enum class Status {
     Success,
