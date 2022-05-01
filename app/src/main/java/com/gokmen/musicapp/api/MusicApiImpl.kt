@@ -29,9 +29,12 @@ internal class MusicApiImpl @Inject constructor(
                     call: Call<SearchResponse>,
                     response: Response<SearchResponse>
                 ) {
-                    Timber.d("Search artist call returned response")
                     if (response.isSuccessful) {
+                        Timber.d("Search artist call returned response")
                         result = response.body()?.results?.matches?.artists
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        Timber.e("Search artist call is not successful : $errorMessage")
                     }
                     countDownLatch.countDown()
                 }
@@ -60,9 +63,12 @@ internal class MusicApiImpl @Inject constructor(
                     call: Call<AlbumResponse>,
                     response: Response<AlbumResponse>
                 ) {
-                    Timber.d("Top album call returned response")
                     if (response.isSuccessful) {
+                        Timber.d("Top album call returned response")
                         result = response.body()?.topAlbums?.albums
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        Timber.e("Top album call is not successful : $errorMessage")
                     }
                     countDownLatch.countDown()
                 }
@@ -75,6 +81,45 @@ internal class MusicApiImpl @Inject constructor(
 
         countDownLatch.await(TIMEOUT_MILLISECONDS, TimeUnit.MILLISECONDS)
         Timber.d("Returning found albums")
+
+        return result
+    }
+
+    @WorkerThread
+    override suspend fun findAlbumTracks(
+        artistName: String,
+        albumName: String
+    ): Result<List<AlbumTrack>> {
+        val countDownLatch = CountDownLatch(1)
+        lateinit var result: Result<List<AlbumTrack>>
+
+        Timber.d("Calling service to get album tracks")
+        lastFmService.getAlbumInfo(artistName, albumName)
+            .enqueue(object : Callback<AlbumInfoResponse> {
+                override fun onResponse(
+                    call: Call<AlbumInfoResponse>,
+                    response: Response<AlbumInfoResponse>
+                ) {
+                    result = if (response.isSuccessful) {
+                        Timber.d("Get album tracks call returned response")
+                        Result(Status.Success, response.body()?.album?.trackResults?.tracks)
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        Timber.e("Get album tracks call is not successful : $errorMessage")
+                        Result(Status.ServerError)
+                    }
+                    countDownLatch.countDown()
+                }
+
+                override fun onFailure(call: Call<AlbumInfoResponse>, t: Throwable) {
+                    Timber.e(t, "Get album tracks call failed")
+                    result = Result(Status.NetworkError)
+                    countDownLatch.countDown()
+                }
+            })
+
+        countDownLatch.await(TIMEOUT_MILLISECONDS, TimeUnit.MILLISECONDS)
+        Timber.d("Returning found tracks")
 
         return result
     }

@@ -1,5 +1,6 @@
 package com.gokmen.musicapp.utils
 
+import com.gokmen.musicapp.api.AlbumTrack
 import com.gokmen.musicapp.api.SearchArtist
 import com.gokmen.musicapp.api.TopAlbum
 import com.gokmen.musicapp.db.entity.AlbumEntity
@@ -36,6 +37,15 @@ internal fun TopAlbum.toAlbum(): Album {
         artist = artist,
         thumbnailUrl = smallImage,
         coverUrl = mediumImage
+    )
+}
+
+internal fun AlbumTrack.toTrack(albumId: String): Track {
+    val name = name ?: ""
+
+    return Track(
+        albumId = albumId,
+        name = name
     )
 }
 

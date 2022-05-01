@@ -14,6 +14,10 @@
         <action
             android:id="@+id/openSearchFragment"
             app:destination="@id/SearchFragment" />
+
+        <action
+            android:id="@+id/openAlbumFragment"
+            app:destination="@id/AlbumFragment" />
     </fragment>
 
     <fragment
@@ -36,5 +40,20 @@
         <argument
             android:name="artist"
             app:argType="com.gokmen.musicapp.models.Artist" />
+
+        <action
+            android:id="@+id/openAlbumFragment"
+            app:destination="@id/AlbumFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AlbumFragment"
+        android:name="com.gokmen.musicapp.ui.album.AlbumFragment"
+        android:label="@string/album_fragment_label"
+        tools:layout="@layout/fragment_album">
+
+        <argument
+            android:name="album"
+            app:argType="com.gokmen.musicapp.models.Album" />
     </fragment>
 </navigation>

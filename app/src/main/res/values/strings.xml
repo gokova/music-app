@@ -2,6 +2,8 @@
     <!-- General strings -->
     <string name="app_name">Music App</string>
     <string name="action_search">Search</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
     <string name="right_arrow">Right arrow</string>
     <string name="album_cover">Album cover</string>
 
@@ -20,4 +22,9 @@
     <string name="artist_fragment_label">Top Albums</string>
     <string name="top_albums">Albums</string>
     <string name="albums_not_found">Albums not found</string>
+
+    <!-- Album fragment strings -->
+    <string name="album_fragment_label">Album Details</string>
+    <string name="track_list">Tracks</string>
+    <string name="tracks_not_found">Tracks not found</string>
 </resources>
