@@ -31,6 +31,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -46,7 +52,11 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:${google_hilt}"
     kapt "androidx.hilt:hilt-compiler:${androidx_hilt}"
 
-    testImplementation "junit:junit:${junit}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_jupiter}"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junit_jupiter}"
+    testImplementation "com.squareup.retrofit2:retrofit-mock:${retrofit_mock}"
+    testImplementation "io.mockk:mockk:${mockk}"
 
     androidTestImplementation "androidx.test.ext:junit:${junit_ext}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${espresso_core}"

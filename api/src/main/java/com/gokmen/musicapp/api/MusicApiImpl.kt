@@ -29,7 +29,7 @@ internal class MusicApiImpl @Inject constructor(
     @WorkerThread
     override suspend fun searchArtist(artistName: String): Result<List<SearchArtist>> {
         val countDownLatch = CountDownLatch(1)
-        lateinit var result: Result<List<SearchArtist>>
+        var result: Result<List<SearchArtist>> = Result(Status.NetworkError)
 
         Timber.d("Calling service to search artist")
         lastFmService.searchArtist(artistName)
@@ -65,7 +65,7 @@ internal class MusicApiImpl @Inject constructor(
     @WorkerThread
     override suspend fun findTopAlbums(artistName: String): Result<List<TopAlbum>> {
         val countDownLatch = CountDownLatch(1)
-        lateinit var result: Result<List<TopAlbum>>
+        var result: Result<List<TopAlbum>> = Result(Status.NetworkError)
 
         Timber.d("Calling service to find top albums")
         lastFmService.getTopAlbums(artistName)
@@ -104,7 +104,7 @@ internal class MusicApiImpl @Inject constructor(
         albumName: String
     ): Result<List<AlbumTrack>> {
         val countDownLatch = CountDownLatch(1)
-        lateinit var result: Result<List<AlbumTrack>>
+        var result: Result<List<AlbumTrack>> = Result(Status.NetworkError)
 
         Timber.d("Calling service to get album tracks")
         lastFmService.getAlbumInfo(artistName, albumName)
