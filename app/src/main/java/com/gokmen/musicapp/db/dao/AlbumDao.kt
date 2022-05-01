@@ -20,7 +20,7 @@ internal interface AlbumDao {
 
     @Transaction
     @Query("SELECT * FROM $ALBUM_TABLE_NAME WHERE name=:name AND artist=:artist LIMIT 1")
-    fun getByNameAndArtist(name: String, artist: String): LiveData<AlbumWithTracks?>
+    fun getByNameAndArtist(name: String, artist: String): AlbumWithTracks?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(album: AlbumEntity)

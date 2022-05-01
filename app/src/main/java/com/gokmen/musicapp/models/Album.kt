@@ -10,6 +10,6 @@ data class Album(
     val artist: String,
     val thumbnailUrl: String,
     val coverUrl: String,
-    val isSaved: Boolean = false,
+    var isSaved: Boolean = false,
     var tracks: List<Track>? = null
 ) : Parcelable

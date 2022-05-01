@@ -18,7 +18,7 @@ internal class LocalStorageImpl @Inject constructor(
         return albumDao.getAll()
     }
 
-    override fun getAlbum(name: String, artist: String): LiveData<AlbumWithTracks?> {
+    override fun getAlbum(name: String, artist: String): AlbumWithTracks? {
         return albumDao.getByNameAndArtist(name, artist)
     }
 

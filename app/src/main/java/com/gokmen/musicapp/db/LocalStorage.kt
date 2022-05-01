@@ -7,7 +7,7 @@ interface LocalStorage {
 
     fun getAlbums(): LiveData<List<AlbumWithTracks>>
 
-    fun getAlbum(name: String, artist: String): LiveData<AlbumWithTracks?>
+    fun getAlbum(name: String, artist: String): AlbumWithTracks?
 
     fun insertAlbum(album: AlbumWithTracks)
 
