@@ -2,6 +2,7 @@ package com.gokmen.musicapp.ui.album
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.gokmen.musicapp.api.MusicApi
 import com.gokmen.musicapp.api.models.Status
@@ -19,27 +20,34 @@ import javax.inject.Inject
 @HiltViewModel
 class AlbumFragmentVM @Inject constructor(
     private var localStorage: LocalStorage,
-    private var musicApi: MusicApi
+    private var musicApi: MusicApi,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _album = MutableLiveData<Album>()
     val album: LiveData<Album> = _album
 
-    private var fetchState: FetchState = FetchState.IDLE
+    private val _illegalArgument = MutableLiveData(false)
+    val illegalArgument: LiveData<Boolean> = _illegalArgument
 
-    fun setAlbum(album: Album) {
-        if (fetchState != FetchState.IDLE) return
+    init {
+        setAlbum(savedStateHandle.get<Album>("album"))
+    }
+
+    private fun setAlbum(album: Album?) {
+        if (album == null) {
+            _illegalArgument.postValue(true)
+            return
+        }
 
         if (album.isSaved) {
             // When isSaved, it means album information is coming from database
-            _album.postValue(album)
+            _album.postValue(album!!)
         }
 
         CoroutineScope(Dispatchers.Default).launch {
-            fetchState = FetchState.FETCHING
             tryToFetchFromLocal(album)
             tryToFetchFromRemote(album)
-            fetchState = FetchState.FETCHED
         }
     }
 
@@ -96,11 +104,5 @@ class AlbumFragmentVM @Inject constructor(
                 }
             }
         }
-    }
-
-    private enum class FetchState {
-        IDLE,
-        FETCHING,
-        FETCHED
     }
 }

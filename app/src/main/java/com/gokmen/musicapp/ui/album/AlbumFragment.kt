@@ -9,13 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.gokmen.musicapp.R
 import com.gokmen.musicapp.databinding.FragmentAlbumBinding
 import com.gokmen.musicapp.models.Album
 import com.gokmen.musicapp.utils.getDecoration
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -27,8 +28,6 @@ class AlbumFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    private val args: AlbumFragmentArgs by navArgs()
 
     private val albumFragmentVM: AlbumFragmentVM by viewModels()
 
@@ -51,7 +50,6 @@ class AlbumFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        albumFragmentVM.setAlbum(args.album)
         initRecyclerView()
         initObservers()
     }
@@ -110,6 +108,18 @@ class AlbumFragment : Fragment() {
         albumFragmentVM.album.observe(viewLifecycleOwner) { album ->
             activity?.invalidateOptionsMenu()
             bindAlbumInfo(album)
+        }
+
+        albumFragmentVM.illegalArgument.observe(viewLifecycleOwner) { illegalArgument ->
+            if (illegalArgument) {
+                Timber.e("Album must be passed to fragment with key: album")
+                Snackbar.make(
+                    binding.rvTrackList,
+                    R.string.album_not_found_error_message,
+                    Snackbar.LENGTH_LONG
+                ).show()
+                findNavController().navigateUp()
+            }
         }
     }
 
